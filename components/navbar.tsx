@@ -1,9 +1,10 @@
 "use client";
 
 import Link from "next/link";
-import { Menu, Search, Globe } from "lucide-react";
+import { Menu, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Locale } from "@/lib/i18n";
+import { LanguageSwitcherCompact } from "@/components/language-switcher";
 
 interface NavbarProps {
   translations: any;
@@ -11,24 +12,23 @@ interface NavbarProps {
 }
 
 export function Navbar({ translations, locale }: NavbarProps) {
-  const otherLocale = locale === "en" ? "th" : "en";
+  const today = new Date().toLocaleDateString(locale, {
+    weekday: "long",
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+  });
 
   return (
-    <nav className="border-b bg-white sticky top-0 z-50">
+    <nav className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 sticky top-0 z-50 shadow-sm">
       {/* Top bar */}
-      <div className="border-b py-2">
+      <div className="border-b py-2 bg-muted/30">
         <div className="container mx-auto px-4 flex items-center justify-between text-sm text-muted-foreground">
           <div className="flex items-center gap-4">
-            <time>Thursday, January 29, 2026</time>
+            <time>{today}</time>
           </div>
           <div className="flex items-center gap-4">
-            <Link
-              href={`/${otherLocale}`}
-              className="flex items-center gap-1 hover:text-foreground transition-colors"
-            >
-              <Globe className="h-4 w-4" />
-              {otherLocale.toUpperCase()}
-            </Link>
+            <LanguageSwitcherCompact currentLang={locale} />
             <Link href={`/${locale}/auth/signin`}>
               <Button variant="ghost" size="sm">
                 {translations.auth.signIn}
@@ -45,7 +45,7 @@ export function Navbar({ translations, locale }: NavbarProps) {
             <Button variant="ghost" size="icon" className="lg:hidden">
               <Menu className="h-5 w-5" />
             </Button>
-            <Link href={`/${locale}`} className="text-2xl font-bold tracking-tight">
+            <Link href={`/${locale}`} className="text-2xl font-bold tracking-tight font-serif">
               UnfakeNews
             </Link>
           </div>

@@ -57,4 +57,41 @@
     @apply bg-background text-foreground;
     font-feature-settings: "rlig" 1, "calt" 1;
   }
+  
+  /* Thai font optimization */
+  [lang="th"],
+  [lang="th"] * {
+    font-family: var(--font-noto-sans-thai), system-ui, sans-serif;
+  }
+  
+  /* Serif headings */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-noto-serif), Georgia, serif;
+  }
+  
+  /* Smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/* Article prose styling enhancements */
+@layer components {
+  .prose {
+    @apply text-foreground;
+  }
+  
+  .prose h1,
+  .prose h2,
+  .prose h3 {
+    @apply text-foreground;
+  }
+  
+  .prose p {
+    @apply text-foreground/90 leading-relaxed;
+  }
+  
+  .prose a {
+    @apply text-primary underline decoration-primary/30 hover:decoration-primary transition-colors;
+  }
 }
