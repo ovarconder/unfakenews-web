@@ -20,6 +20,7 @@ interface SocialShareProps {
   excerpt: string;
   locale: Locale;
   compact?: boolean;
+  articleId?: string;
 }
 
 export function SocialShare({ title, excerpt, locale, compact = false, articleId }: SocialShareProps) {
