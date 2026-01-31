@@ -1,12 +1,12 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useState, Suspense } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { useSession } from "next-auth/react";
 import { motion } from "framer-motion";
 import { Loader2, CheckCircle, XCircle } from "lucide-react";
 
-export default function AuthCallback() {
+function AuthCallbackContent() {
   const router = useRouter();
   const searchParams = useSearchParams();
   const { data: session, status } = useSession();
@@ -181,5 +181,27 @@ export default function AuthCallback() {
         </div>
       </motion.div>
     </div>
+  );
+}
+
+export default function AuthCallback() {
+  return (
+    <Suspense
+      fallback={
+        <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-white to-purple-50">
+          <div className="bg-white rounded-2xl shadow-2xl p-12 max-w-md w-full mx-4">
+            <div className="text-center">
+              <div className="mb-6 flex justify-center">
+                <Loader2 className="h-16 w-16 text-blue-600 animate-spin" />
+              </div>
+              <h2 className="text-2xl font-bold mb-3">กำลังดำเนินการ...</h2>
+              <p className="text-muted-foreground mb-6">กำลังเข้าสู่ระบบ...</p>
+            </div>
+          </div>
+        </div>
+      }
+    >
+      <AuthCallbackContent />
+    </Suspense>
   );
 }
