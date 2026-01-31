@@ -5,6 +5,11 @@ import { locales, defaultLocale } from "@/lib/i18n";
 export function middleware(request: NextRequest) {
   const pathname = request.nextUrl.pathname;
 
+  // Skip NextAuth API routes
+  if (pathname.startsWith("/api/auth") || pathname.startsWith("/auth")) {
+    return;
+  }
+
   // Check if pathname already has a locale
   const pathnameHasLocale = locales.some(
     (locale) => pathname.startsWith(`/${locale}/`) || pathname === `/${locale}`
@@ -41,7 +46,7 @@ export function middleware(request: NextRequest) {
 
 export const config = {
   matcher: [
-    // Skip Next.js internals and static files
-    "/((?!api|_next/static|_next/image|favicon.ico|.*\\..*).*)",
+    // Skip Next.js internals, static files, and auth routes
+    "/((?!api|_next/static|_next/image|favicon.ico|auth|.*\\..*).*)",
   ],
 };
