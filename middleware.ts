@@ -59,7 +59,7 @@ export function middleware(request: NextRequest) {
 export const config = {
   matcher: [
     /*
-     * Match all request paths
+     * Match all request paths  
      */
     '/:path*',
   ],
