@@ -36,7 +36,6 @@ export function PostContent({ post, locale, slug }: PostContentProps) {
           <LanguageSwitcher 
             currentLang={locale} 
             currentSlug={slug}
-            originalPostId={post.originalPostId || post.id}
           />
         </div>
 

@@ -19,30 +19,17 @@ export function LanguageSwitcher({ currentLang, currentSlug, originalPostId }: L
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleLanguageChange = async (newLang: Locale) => {
+  const handleLanguageChange = (newLang: Locale) => {
     // Save language preference
     saveLanguagePreference(newLang);
     
     // Track language change
     gaEvent.changeLanguage(currentLang, newLang);
     
-    // If we have originalPostId, fetch the slug for the new language
-    if (originalPostId) {
-      try {
-        const response = await fetch(`/api/posts/slug?postId=${originalPostId}&lang=${newLang}`);
-        if (response.ok) {
-          const data = await response.json();
-          router.push(`/${newLang}/${data.slug}`);
-        } else {
-          // Fallback to home if translation doesn't exist
-          router.push(`/${newLang}`);
-        }
-      } catch (error) {
-        console.error('Error fetching slug:', error);
-        router.push(`/${newLang}`);
-      }
-    } else if (currentSlug) {
-      router.push(`/${newLang}/${currentSlug}`);
+    // For article pages, redirect to home page of new language
+    // (simpler than trying to find translated slug which may not exist)
+    if (currentSlug) {
+      router.push(`/${newLang}`);
     } else {
       // For other pages, reconstruct the path with new language
       const segments = pathname.split("/").filter(Boolean);

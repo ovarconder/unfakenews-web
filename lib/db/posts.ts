@@ -10,7 +10,6 @@ export interface PostWithTranslation {
   published: boolean;
   featured: boolean;
   views: number;
-  originalPostId: string | null;
   author: {
     id: string;
     name: string | null;
@@ -105,7 +104,6 @@ export async function getPostBySlug(
       published: post.published,
       featured: post.featured,
       views: post.views,
-      originalPostId: post.originalPostId,
       author: post.author,
       translation: {
         title: translation.title,
@@ -154,7 +152,6 @@ export async function getAllPosts(lang: Locale, limit?: number) {
       published: post.published,
       featured: post.featured,
       views: post.views,
-      originalPostId: post.originalPostId,
       author: post.author,
       translation: post.translations[0] || null,
       createdAt: post.createdAt,
@@ -195,7 +192,6 @@ export async function getFeaturedPosts(lang: Locale, limit: number = 6) {
       published: post.published,
       featured: post.featured,
       views: post.views,
-      originalPostId: post.originalPostId,
       author: post.author,
       translation: post.translations[0] || null,
       createdAt: post.createdAt,
@@ -240,7 +236,6 @@ export async function getPostsByCategory(
       published: post.published,
       featured: post.featured,
       views: post.views,
-      originalPostId: post.originalPostId,
       author: post.author,
       translation: post.translations[0] || null,
       createdAt: post.createdAt,
