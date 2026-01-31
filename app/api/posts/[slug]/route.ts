@@ -4,14 +4,15 @@ import { getLocale, Locale } from "@/lib/i18n";
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { slug: string } }
+  { params }: { params: Promise<{ slug: string }> }
 ) {
   try {
+    const { slug } = await params;
     const searchParams = request.nextUrl.searchParams;
     const lang = searchParams.get("lang") || "en";
     const locale = getLocale(lang);
 
-    const post = await getPostBySlug(params.slug, locale);
+    const post = await getPostBySlug(slug, locale);
 
     if (!post) {
       return NextResponse.json(
@@ -21,7 +22,7 @@ export async function GET(
     }
 
     // Increment view count
-    await incrementPostViews(params.slug);
+    await incrementPostViews(slug);
 
     return NextResponse.json(post);
   } catch (error) {
