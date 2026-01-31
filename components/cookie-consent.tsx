@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { X, Cookie } from "lucide-react";
@@ -83,9 +84,9 @@ export function CookieConsent() {
                 </div>
                 <p className="text-xs text-muted-foreground mt-2">
                   อ่านเพิ่มเติม:{" "}
-                  <a href="/privacy" className="underline hover:text-primary">
+                  <Link href="/privacy" className="underline hover:text-primary">
                     Privacy Policy
-                  </a>
+                  </Link>
                 </p>
               </div>
               <button
