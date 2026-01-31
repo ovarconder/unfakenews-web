@@ -6,7 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
-import { Chrome, Mail, Lock, Loader2 } from "lucide-react";
+import { Mail, Lock, Loader2 } from "lucide-react";
 
 export default function SignInPage() {
   const router = useRouter();
@@ -40,16 +40,6 @@ export default function SignInPage() {
     }
   };
 
-  const handleGoogleSignIn = async () => {
-    setLoading(true);
-    try {
-      await signIn("google", { callbackUrl: "/auth/callback" });
-    } catch (error) {
-      console.error("Google sign in error:", error);
-      setLoading(false);
-    }
-  };
-
   return (
     <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 to-slate-100 dark:from-slate-900 dark:to-slate-800 px-4">
       <Card className="w-full max-w-md p-8 space-y-6">
@@ -58,38 +48,6 @@ export default function SignInPage() {
           <p className="text-muted-foreground">
             UnfakeNews Management System
           </p>
-        </div>
-
-        {/* Google Sign In */}
-        <Button
-          type="button"
-          variant="outline"
-          className="w-full"
-          onClick={handleGoogleSignIn}
-          disabled={loading}
-        >
-          {loading ? (
-            <>
-              <Loader2 className="h-4 w-4 mr-2 animate-spin" />
-              กำลังเชื่อมต่อ...
-            </>
-          ) : (
-            <>
-              <Chrome className="h-4 w-4 mr-2" />
-              Sign in with Google
-            </>
-          )}
-        </Button>
-
-        <div className="relative">
-          <div className="absolute inset-0 flex items-center">
-            <span className="w-full border-t" />
-          </div>
-          <div className="relative flex justify-center text-xs uppercase">
-            <span className="bg-background px-2 text-muted-foreground">
-              หรือ
-            </span>
-          </div>
         </div>
 
         {/* Credentials Sign In */}
@@ -105,9 +63,10 @@ export default function SignInPage() {
               onChange={(e) =>
                 setFormData({ ...formData, email: e.target.value })
               }
-              placeholder="admin@unfakenews.com"
+              placeholder="admin@unfakenews.asia"
               required
               disabled={loading}
+              autoComplete="email"
             />
           </div>
 
@@ -125,6 +84,7 @@ export default function SignInPage() {
               placeholder="••••••••"
               required
               disabled={loading}
+              autoComplete="current-password"
             />
           </div>
 
@@ -141,9 +101,8 @@ export default function SignInPage() {
         </form>
 
         <div className="text-center text-sm text-muted-foreground">
-          <p>💡 Demo Credentials:</p>
-          <p className="font-mono text-xs mt-1">
-            admin@unfakenews.com / admin123
+          <p className="text-xs">
+            💡 ติดต่อผู้ดูแลระบบเพื่อขอ email และรหัสผ่าน
           </p>
         </div>
       </Card>

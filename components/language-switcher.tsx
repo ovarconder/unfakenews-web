@@ -11,21 +11,37 @@ import { gaEvent } from "@/components/google-analytics";
 interface LanguageSwitcherProps {
   currentLang: Locale;
   currentSlug?: string;
+  originalPostId?: string;
 }
 
-export function LanguageSwitcher({ currentLang, currentSlug }: LanguageSwitcherProps) {
+export function LanguageSwitcher({ currentLang, currentSlug, originalPostId }: LanguageSwitcherProps) {
   const [isOpen, setIsOpen] = useState(false);
   const router = useRouter();
   const pathname = usePathname();
 
-  const handleLanguageChange = (newLang: Locale) => {
+  const handleLanguageChange = async (newLang: Locale) => {
     // Save language preference
     saveLanguagePreference(newLang);
     
     // Track language change
     gaEvent.changeLanguage(currentLang, newLang);
     
-    if (currentSlug) {
+    // If we have originalPostId, fetch the slug for the new language
+    if (originalPostId) {
+      try {
+        const response = await fetch(`/api/posts/slug?postId=${originalPostId}&lang=${newLang}`);
+        if (response.ok) {
+          const data = await response.json();
+          router.push(`/${newLang}/${data.slug}`);
+        } else {
+          // Fallback to home if translation doesn't exist
+          router.push(`/${newLang}`);
+        }
+      } catch (error) {
+        console.error('Error fetching slug:', error);
+        router.push(`/${newLang}`);
+      }
+    } else if (currentSlug) {
       router.push(`/${newLang}/${currentSlug}`);
     } else {
       // For other pages, reconstruct the path with new language

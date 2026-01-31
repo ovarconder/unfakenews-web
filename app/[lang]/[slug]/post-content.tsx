@@ -33,7 +33,11 @@ export function PostContent({ post, locale, slug }: PostContentProps) {
       <article className="container mx-auto px-4 max-w-4xl">
         {/* Language Switcher */}
         <div className="mb-8 flex justify-end">
-          <LanguageSwitcher currentLang={locale} currentSlug={slug} />
+          <LanguageSwitcher 
+            currentLang={locale} 
+            currentSlug={slug}
+            originalPostId={post.originalPostId || post.id}
+          />
         </div>
 
         {/* Article Header */}
