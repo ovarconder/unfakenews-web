@@ -7,9 +7,9 @@ export function middleware(request: NextRequest) {
 
   // Skip middleware for API routes and auth pages
   if (
-    pathname.startsWith('/api/') ||
-    pathname.startsWith('/auth/') ||
-    pathname.startsWith('/_next/') ||
+    pathname.startsWith('/api') ||
+    pathname.startsWith('/auth') ||
+    pathname.startsWith('/_next') ||
     pathname === '/favicon.ico' ||
     /\.\w+$/.test(pathname) // files with extensions
   ) {
