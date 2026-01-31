@@ -1,5 +1,6 @@
 "use client";
 
+import { useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Clock, Bookmark } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -7,6 +8,7 @@ import { Locale } from "@/lib/i18n";
 import { LanguageSwitcher } from "@/components/language-switcher";
 import { PostWithTranslation } from "@/lib/db/posts";
 import { SocialShare } from "@/components/social-share";
+import { gaEvent } from "@/components/google-analytics";
 
 interface PostContentProps {
   post: PostWithTranslation;
