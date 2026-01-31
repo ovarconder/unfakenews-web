@@ -51,11 +51,10 @@ export function middleware(request: NextRequest) {
 }
 
 export const config = {
-  // Run middleware on all routes
   matcher: [
     /*
-     * Match all request paths except static files
+     * Match all request paths
      */
-    '/((?!_next/static|_next/image|favicon.ico).*)',
+    '/:path*',
   ],
 };
