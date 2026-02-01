@@ -7,6 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Save, Loader2, ImagePlus } from "lucide-react";
 import { ImageUploader } from "@/components/admin/image-uploader";
+import { RichTextEditor } from "@/components/admin/rich-text-editor";
 
 export default function AdminCreatePost() {
   const router = useRouter();
@@ -134,20 +135,23 @@ export default function AdminCreatePost() {
           />
         </Card>
 
-        {/* เนื้อหา */}
+        {/* เนื้อหา - Rich Text Editor */}
         <Card className="p-6">
-          <label className="block text-sm font-medium mb-2">เนื้อหาข่าว</label>
-          <textarea
-            value={formData.content}
-            onChange={(e) => setFormData({ ...formData, content: e.target.value })}
-            placeholder="เขียนเนื้อหาข่าวฉบับเต็มภาษาไทย... (รองรับ HTML)"
-            required
-            rows={15}
-            className="w-full px-3 py-2 border rounded-md font-mono text-sm"
+          <label className="block text-sm font-medium mb-4">เนื้อหาข่าว</label>
+          <RichTextEditor
+            content={formData.content}
+            onChange={(html) => setFormData({ ...formData, content: html })}
+            placeholder="เริ่มเขียนบทความ... ใช้ toolbar ด้านบนเพื่อจัดรูปแบบข้อความ และใส่รูปภาพ"
           />
-          <p className="text-xs text-muted-foreground mt-1">
-            💡 รองรับ HTML tags: &lt;p&gt;, &lt;h2&gt;, &lt;strong&gt;, &lt;em&gt;, etc.
+          <p className="text-xs text-muted-foreground mt-4">
+            💡 <strong>คำแนะนำ:</strong>
           </p>
+          <ul className="text-xs text-muted-foreground mt-2 space-y-1 ml-4 list-disc">
+            <li>ใช้ปุ่ม <strong>📷 Image</strong> เพื่อใส่รูปภาพเดี่ยว</li>
+            <li>ใช้ปุ่ม <strong>🖼️ Gallery</strong> เพื่อใส่หลายรูปพร้อมกัน</li>
+            <li>กด <strong>Ctrl+B</strong> = ตัวหนา | <strong>Ctrl+I</strong> = ตัวเอียง</li>
+            <li>สามารถ Drag & Drop รูปภาพเข้ามาได้โดยตรง</li>
+          </ul>
         </Card>
 
         {/* รูปภาพ */}

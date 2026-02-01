@@ -1,0 +1,107 @@
+/* Tiptap Editor Styles */
+
+.ProseMirror {
+  @apply focus:outline-none;
+}
+
+/* Placeholder */
+.ProseMirror p.is-editor-empty:first-child::before {
+  @apply text-gray-400;
+  content: attr(data-placeholder);
+  float: left;
+  height: 0;
+  pointer-events: none;
+}
+
+/* Images */
+.ProseMirror img {
+  @apply max-w-full h-auto rounded-lg shadow-md my-4;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+
+.ProseMirror img:hover {
+  @apply shadow-lg;
+  transform: scale(1.02);
+}
+
+/* Selected image */
+.ProseMirror img.ProseMirror-selectednode {
+  @apply ring-2 ring-blue-500 ring-offset-2;
+}
+
+/* Headings */
+.ProseMirror h1 {
+  @apply text-4xl font-bold mt-8 mb-4;
+}
+
+.ProseMirror h2 {
+  @apply text-3xl font-bold mt-6 mb-3;
+}
+
+.ProseMirror h3 {
+  @apply text-2xl font-bold mt-4 mb-2;
+}
+
+/* Lists */
+.ProseMirror ul,
+.ProseMirror ol {
+  @apply pl-6 my-4;
+}
+
+.ProseMirror ul {
+  @apply list-disc;
+}
+
+.ProseMirror ol {
+  @apply list-decimal;
+}
+
+.ProseMirror li {
+  @apply my-2;
+}
+
+/* Blockquote */
+.ProseMirror blockquote {
+  @apply border-l-4 border-gray-300 pl-4 py-2 my-4 italic text-gray-700;
+}
+
+/* Code */
+.ProseMirror code {
+  @apply bg-gray-100 rounded px-2 py-1 text-sm font-mono;
+}
+
+.ProseMirror pre {
+  @apply bg-gray-900 text-gray-100 rounded-lg p-4 my-4 overflow-x-auto;
+}
+
+.ProseMirror pre code {
+  @apply bg-transparent text-inherit p-0;
+}
+
+/* Horizontal Rule */
+.ProseMirror hr {
+  @apply my-8 border-t-2 border-gray-200;
+}
+
+/* Links */
+.ProseMirror a {
+  @apply text-blue-600 underline hover:text-blue-800;
+}
+
+/* Text Selection */
+.ProseMirror::selection {
+  @apply bg-blue-200;
+}
+
+/* Gallery-like layout for consecutive images */
+.ProseMirror img + img {
+  @apply inline-block w-[48%] mr-[2%];
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .ProseMirror img + img {
+    @apply w-full mr-0 block;
+  }
+}
